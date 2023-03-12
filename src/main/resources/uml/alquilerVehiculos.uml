@@ -2358,5 +2358,5 @@
   <PapyrusJava:External xmi:id="_141b0KOaEe2ZB8FyM7Ufdg" name="org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler" base_Classifier="_14qcsKOaEe2ZB8FyM7Ufdg"/>
   <standard:Create xmi:id="_15HIoKOaEe2ZB8FyM7Ufdg" base_BehavioralFeature="_15BpEKOaEe2ZB8FyM7Ufdg"/>
   <PapyrusJava:External xmi:id="_15jNgKOaEe2ZB8FyM7Ufdg" name="org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente" base_Classifier="_15dG4KOaEe2ZB8FyM7Ufdg"/>
-  <PapyrusJava:External xmi:id="_153WkKOaEe2ZB8FyM7Ufdg" name="org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo" base_Classifier="_15x3AKOaEe2ZB8FyM7Ufdg"/>
+  <PapyrusJava:External xmi:id="_153WkKOaEe2ZB8FyM7Ufdg" name="org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo" base_Classifier="_15x3AKOaEe2ZB8FyM7Ufdg"/>
 </xmi:XMI>

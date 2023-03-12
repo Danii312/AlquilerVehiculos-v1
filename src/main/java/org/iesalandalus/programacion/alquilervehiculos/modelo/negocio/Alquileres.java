@@ -2,7 +2,7 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -39,12 +39,12 @@ public class Alquileres {
     }
 
     // MÉTODO get turismo
-    public List<Alquiler> get(Turismo turismo) {
+    public List<Alquiler> get(Vehiculo turismo) {
         ArrayList<Alquiler> alquilerTurismo = new ArrayList<>();
         Iterator<Alquiler> alquilerIterator = coleccionAlquileres.iterator();
         while (alquilerIterator.hasNext()) {
             Alquiler turismoAlquiler = alquilerIterator.next();
-            if (turismoAlquiler.getTurismo().equals(turismo)) {
+            if (turismoAlquiler.getVehiculo().equals(turismo)) {
                 alquilerTurismo.add(turismoAlquiler);
             }
         }
@@ -61,13 +61,13 @@ public class Alquileres {
         if (alquiler == null) {
             throw new NullPointerException("ERROR: No se puede insertar un alquiler nulo.");
         }
-        if (comprobarAlquiler(alquiler.getCliente(), alquiler.getTurismo(), alquiler.getFechaAlquiler())) {
+        if (comprobarAlquiler(alquiler.getCliente(), alquiler.getVehiculo(), alquiler.getFechaAlquiler())) {
             coleccionAlquileres.add(new Alquiler(alquiler));
         }
     }
 
     // MÉTODO comprobarAlquiler
-    private boolean comprobarAlquiler(Cliente cliente, Turismo turismo, LocalDate fechaAlquiler) throws Exception {
+    private boolean comprobarAlquiler(Cliente cliente, Vehiculo turismo, LocalDate fechaAlquiler) throws Exception {
         boolean estadoAlquiler = true;
         Iterator<Alquiler> alquilerIterador = coleccionAlquileres.iterator();
         while (alquilerIterador.hasNext()) {
@@ -76,7 +76,7 @@ public class Alquileres {
                 if (alquiler2.getCliente().equals(cliente)) {
                     estadoAlquiler = false;
                     throw new OperationNotSupportedException("ERROR: El cliente tiene otro alquiler sin devolver.");
-                } else if (alquiler2.getTurismo().equals(turismo)) {
+                } else if (alquiler2.getVehiculo().equals(turismo)) {
                     estadoAlquiler = false;
                     throw new OperationNotSupportedException("ERROR: El turismo está actualmente alquilado.");
                 }
@@ -85,7 +85,7 @@ public class Alquileres {
                     if (alquiler2.getCliente().equals(cliente)) {
                         estadoAlquiler = false;
                         throw new OperationNotSupportedException("ERROR: El cliente tiene un alquiler posterior.");
-                    } else if (alquiler2.getTurismo().equals(turismo) && !alquiler2.getFechaAlquiler().isAfter(fechaAlquiler)) {
+                    } else if (alquiler2.getVehiculo().equals(turismo) && !alquiler2.getFechaAlquiler().isAfter(fechaAlquiler)) {
                         estadoAlquiler = false;
                         throw new OperationNotSupportedException("ERROR: El turismo tiene un alquiler posterior.");
                     }
@@ -130,7 +130,7 @@ public class Alquileres {
         Iterator<Alquiler> iterator = coleccionAlquileres.iterator();
         while (iterator.hasNext()) {
             alquiler2 = iterator.next();
-            if (alquiler2.getCliente().getDni().equals(alquiler.getCliente().getDni()) || alquiler2.getTurismo().getMatricula().equals(alquiler.getTurismo().getMatricula())) {
+            if (alquiler2.getCliente().getDni().equals(alquiler.getCliente().getDni()) || alquiler2.getVehiculo().getMatricula().equals(alquiler.getVehiculo().getMatricula())) {
                 return alquiler2;
             }
         }

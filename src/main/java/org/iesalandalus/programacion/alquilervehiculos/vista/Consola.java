@@ -2,7 +2,7 @@ package org.iesalandalus.programacion.alquilervehiculos.vista;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
@@ -104,14 +104,14 @@ public class Consola {
     }
 
     // MÉTODO leerTurismo
-    public static Turismo leerTurismo() {
-        Turismo turismo = null;
+    public static Vehiculo leerTurismo() {
+        Vehiculo turismo = null;
         String marca = leerCadena("Introduce marca: ");
         String modelo = leerCadena("Introduce modelo: ");
         int cilindrada = leerEntero("Introduce número cilindrada: ");
         String matricula = leerCadena("Introduce matrícula - Formato (1111AAA)");
         try {
-            turismo = new Turismo(marca, modelo, cilindrada, matricula);
+            turismo = new Vehiculo(marca, modelo, cilindrada, matricula);
         } catch (Exception e) {
 
             System.out.println(e.getMessage());
@@ -120,15 +120,15 @@ public class Consola {
     }
 
     // MÉTODO leerTurismoMatricula
-    public static Turismo leerTurismoMatricula() throws Exception {
+    public static Vehiculo leerTurismoMatricula() throws Exception {
         String matricula = leerCadena("Introduce matrícula - Formato (1111AAA)");
-        return Turismo.getTurismoConMatricula(matricula);
+        return Vehiculo.getTurismoConMatricula(matricula);
     }
 
     // MÉTODO leerAlquiler
     public static Alquiler leerAlquiler() throws Exception {
         Cliente cliente = leerClienteDni();
-        Turismo turismo = leerTurismoMatricula();
+        Vehiculo turismo = leerTurismoMatricula();
         Alquiler alquiler = null;
         LocalDate fechaDate = leerFecha("Introduce fecha de alquiler - Formato (dd/mm/aaaa)");
         try {

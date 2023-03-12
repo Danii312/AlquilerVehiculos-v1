@@ -2,8 +2,8 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo.dominio;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Alquiler {
@@ -12,14 +12,14 @@ public class Alquiler {
     private static final int PRECIO_DIA = 20;
 
     private Cliente cliente;
-    private Turismo turismo;
+    private Vehiculo vehiculo;
     private LocalDate fechaAlquiler;
     private LocalDate fechaDevolucion;
 
     // CONSTRUCTORES
-    public Alquiler(Cliente cliente, Turismo turismo, LocalDate fechaAlquiler) {
+    public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaAlquiler) {
         setCliente(cliente);
-        setTurismo(turismo);
+        setVehiculo(vehiculo);
         setFechaAlquiler(fechaAlquiler);
     }
 
@@ -27,10 +27,14 @@ public class Alquiler {
         if (alquiler == null) {
             throw new NullPointerException("ERROR: No es posible copiar un alquiler nulo.");
         }
-        setCliente(new Cliente(alquiler.getCliente()));
-        setTurismo(new Turismo(alquiler.getTurismo()));
+        setCliente((alquiler.getCliente()));
+        setVehiculo((alquiler.getVehiculo()));
         setFechaAlquiler(alquiler.getFechaAlquiler());
-        setFechaDevolucion(alquiler.getFechaDevolucion());
+        if (alquiler.getFechaDevolucion() == null) {
+            this.fechaDevolucion = null;
+        } else {
+            setFechaDevolucion(alquiler.getFechaDevolucion());
+        }
     }
 
     // GETTERS
@@ -38,8 +42,8 @@ public class Alquiler {
         return cliente;
     }
 
-    public Turismo getTurismo() {
-        return turismo;
+    public Vehiculo getVehiculo() {
+        return vehiculo;
     }
 
     public LocalDate getFechaAlquiler() {
@@ -59,11 +63,11 @@ public class Alquiler {
         this.cliente = cliente;
     }
 
-    public void setTurismo(Turismo turismo) {
-        if (turismo == null) {
+    public void setVehiculo(Vehiculo vehiculo) {
+        if (vehiculo == null) {
             throw new NullPointerException("ERROR: El turismo no puede ser nulo.");
         }
-        this.turismo = turismo;
+        this.vehiculo = vehiculo;
     }
 
     public void setFechaAlquiler(LocalDate fechaAlquiler) {
@@ -104,18 +108,19 @@ public class Alquiler {
 
     // MÉTODO getPrecio
     public int getPrecio() {
-        if (fechaDevolucion == null) {
-            return 0;
+        int numDias = 0;
+        try {
+            numDias = Period.between(fechaAlquiler, fechaDevolucion).getDays();
+        } catch (Exception e) {
         }
-        int factorCilindrada = turismo.getCilindrada() / 10;
-        int numDias = (int) ChronoUnit.DAYS.between(fechaAlquiler, fechaDevolucion);
-        return (PRECIO_DIA + factorCilindrada) * numDias;
+        int precio = (PRECIO_DIA + this.vehiculo.getFactorPrecio()) * numDias;
+        return precio;
     }
 
     // MÉTODO hashCode & equals
     @Override
     public int hashCode() {
-        return Objects.hash(cliente, fechaAlquiler, turismo);
+        return Objects.hash(cliente, fechaAlquiler, vehiculo);
     }
 
     @Override
@@ -128,14 +133,14 @@ public class Alquiler {
             return false;
         Alquiler other = (Alquiler) obj;
         return Objects.equals(cliente, other.cliente) && Objects.equals(fechaAlquiler, other.fechaAlquiler)
-                && Objects.equals(turismo, other.turismo);
+                && Objects.equals(vehiculo, other.vehiculo);
     }
 
     // MÉTODO toString
     @Override
     public String toString() {
         return String.format("%s <---> %s, %s - %s (" + getPrecio() + "€)",
-                getCliente(), getTurismo(), getFechaAlquiler().format(FORMATO_FECHA),
+                getCliente(), getVehiculo(), getFechaAlquiler().format(FORMATO_FECHA),
                 (getFechaDevolucion() == null) ? "Aún no devuelto" : fechaDevolucion.format(FORMATO_FECHA),
                 (getFechaDevolucion() == null) ? LocalDate.now().format(FORMATO_FECHA) : "",
                 getPrecio());

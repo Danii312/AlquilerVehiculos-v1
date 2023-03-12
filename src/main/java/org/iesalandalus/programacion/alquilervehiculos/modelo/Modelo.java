@@ -2,10 +2,10 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Alquileres;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Clientes;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Turismos;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Vehiculos;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -15,7 +15,7 @@ public class Modelo {
 
     private Clientes clientes;
     private Alquileres alquileres;
-    private Turismos turismos;
+    private Vehiculos turismos;
 
     // CONSTRUCTOR
     public Modelo() {
@@ -26,7 +26,7 @@ public class Modelo {
     public void comenzar() throws Exception {
         clientes = new Clientes();
         alquileres = new Alquileres();
-        turismos = new Turismos();
+        turismos = new Vehiculos();
     }
 
     // MÉTODO terminar
@@ -40,7 +40,7 @@ public class Modelo {
     }
 
     // MÉTODO insertar turismo
-    public void insertar(Turismo turismo) throws Exception {
+    public void insertar(Vehiculo turismo) throws Exception {
         turismos.insertar(turismo);
     }
 
@@ -58,7 +58,7 @@ public class Modelo {
     }
 
     // MÉTODO buscar turismo
-    public Turismo buscar(Turismo turismo) {
+    public Vehiculo buscar(Vehiculo turismo) {
         return turismos.buscar(turismo);
     }
 
@@ -87,7 +87,7 @@ public class Modelo {
     }
 
     // MÉTODO borrar turismo
-    public void borrar(Turismo turismo) throws Exception {
+    public void borrar(Vehiculo turismo) throws Exception {
         turismos.borrar(turismo);
     }
 
@@ -102,7 +102,7 @@ public class Modelo {
     }
 
     // MÉTODO getTurismos
-    public List<Turismo> getTurismos() {
+    public List<Vehiculo> getTurismos() {
         return turismos.get();
     }
 
@@ -117,7 +117,7 @@ public class Modelo {
     }
 
     // MÉTODO getAlquileres turismo
-    public List<Alquiler> getAlquileres(Turismo turismo) {
+    public List<Alquiler> getAlquileres(Vehiculo turismo) {
         return alquileres.get(turismo);
     }
 
