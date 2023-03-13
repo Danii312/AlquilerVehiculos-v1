@@ -42,7 +42,7 @@ public class Furgoneta extends Vehiculo {
     }
 
     @Override
-    public Vehiculo getVehiculoConMatricula(String matricula) {
+    public Furgoneta getVehiculoConMatricula(String matricula) {
         if (matricula == null) {
             throw new NullPointerException("ERROR: La matrícula no puede ser nula.");
         }

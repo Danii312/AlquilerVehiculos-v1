@@ -6,7 +6,7 @@ public class Autobus extends Vehiculo {
     private int plazas;
 
     // CONSTRUCTORES
-    protected Autobus(String marca, String modelo, int plazas, String matricula) {
+    public Autobus(String marca, String modelo, int plazas, String matricula) {
         super(marca, modelo, matricula);
         setPlazas(plazas);
     }
@@ -29,7 +29,7 @@ public class Autobus extends Vehiculo {
     }
 
     @Override
-    public Vehiculo getVehiculoConMatricula(String matricula) {
+    public Autobus getVehiculoConMatricula(String matricula) {
         if (matricula == null) {
             throw new NullPointerException("ERROR: La matrícula no puede ser nula.");
         }

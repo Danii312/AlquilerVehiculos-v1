@@ -2,7 +2,7 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo.dominio;
 
 public class Turismo extends Vehiculo {
 
-    private final int FACTOR_CILINDRADA = 10;
+    private static final int FACTOR_CILINDRADA = 10;
     private int cilindrada;
 
     // CONSTRUCTORES
@@ -45,4 +45,5 @@ public class Turismo extends Vehiculo {
     public String toString() {
         return (String.format("%s %s (%sCV) - %s", super.getMarca(), getCilindrada(), super.getModelo(), super.getMatricula(), "disponible"));
     }
+
 }

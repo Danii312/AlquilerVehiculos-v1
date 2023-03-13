@@ -17,9 +17,9 @@ public class Alquiler {
     private LocalDate fechaDevolucion;
 
     // CONSTRUCTORES
-    public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaAlquiler) {
+    public Alquiler(Cliente cliente, Vehiculo turismo, LocalDate fechaAlquiler) {
         setCliente(cliente);
-        setVehiculo(vehiculo);
+        setVehiculo(turismo);
         setFechaAlquiler(fechaAlquiler);
     }
 
@@ -112,6 +112,7 @@ public class Alquiler {
         try {
             numDias = Period.between(fechaAlquiler, fechaDevolucion).getDays();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         int precio = (PRECIO_DIA + this.vehiculo.getFactorPrecio()) * numDias;
         return precio;

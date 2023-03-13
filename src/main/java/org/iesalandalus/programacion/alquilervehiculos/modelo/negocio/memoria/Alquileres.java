@@ -1,8 +1,9 @@
-package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio;
+package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.memoria;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IAlquileres;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Alquileres {
+public class Alquileres implements IAlquileres {
 
     private List<Alquiler> coleccionAlquileres;
 
@@ -39,12 +40,12 @@ public class Alquileres {
     }
 
     // MÉTODO get turismo
-    public List<Alquiler> get(Vehiculo turismo) {
+    public List<Alquiler> get(Vehiculo vehiculo) {
         ArrayList<Alquiler> alquilerTurismo = new ArrayList<>();
         Iterator<Alquiler> alquilerIterator = coleccionAlquileres.iterator();
         while (alquilerIterator.hasNext()) {
             Alquiler turismoAlquiler = alquilerIterator.next();
-            if (turismoAlquiler.getVehiculo().equals(turismo)) {
+            if (turismoAlquiler.getVehiculo().equals(vehiculo)) {
                 alquilerTurismo.add(turismoAlquiler);
             }
         }
@@ -67,7 +68,7 @@ public class Alquileres {
     }
 
     // MÉTODO comprobarAlquiler
-    private boolean comprobarAlquiler(Cliente cliente, Vehiculo turismo, LocalDate fechaAlquiler) throws Exception {
+    private boolean comprobarAlquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaAlquiler) throws Exception {
         boolean estadoAlquiler = true;
         Iterator<Alquiler> alquilerIterador = coleccionAlquileres.iterator();
         while (alquilerIterador.hasNext()) {
@@ -76,7 +77,7 @@ public class Alquileres {
                 if (alquiler2.getCliente().equals(cliente)) {
                     estadoAlquiler = false;
                     throw new OperationNotSupportedException("ERROR: El cliente tiene otro alquiler sin devolver.");
-                } else if (alquiler2.getVehiculo().equals(turismo)) {
+                } else if (alquiler2.getVehiculo().equals(vehiculo)) {
                     estadoAlquiler = false;
                     throw new OperationNotSupportedException("ERROR: El turismo está actualmente alquilado.");
                 }
@@ -85,7 +86,7 @@ public class Alquileres {
                     if (alquiler2.getCliente().equals(cliente)) {
                         estadoAlquiler = false;
                         throw new OperationNotSupportedException("ERROR: El cliente tiene un alquiler posterior.");
-                    } else if (alquiler2.getVehiculo().equals(turismo) && !alquiler2.getFechaAlquiler().isAfter(fechaAlquiler)) {
+                    } else if (alquiler2.getVehiculo().equals(vehiculo) && !alquiler2.getFechaAlquiler().isAfter(fechaAlquiler)) {
                         estadoAlquiler = false;
                         throw new OperationNotSupportedException("ERROR: El turismo tiene un alquiler posterior.");
                     }

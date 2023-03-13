@@ -3,39 +3,19 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IAlquileres;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IClientes;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IFuenteDatos;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IVehiculos;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Modelo {
+public class ModeloCascada extends Modelo {
 
-    protected IAlquileres alquileres;
-    protected IClientes clientes;
-    protected IVehiculos vehiculos;
-    protected IFuenteDatos fuenteDatos;
-
-    protected void setFuenteDatos(IFuenteDatos fuenteDatos) {
-        this.fuenteDatos = fuenteDatos;
-    }
-
-    public Modelo() {
+    public ModeloCascada(IFuenteDatos fuenteDatos) {
         super();
-    }
-
-    public void comenzar() {
-        alquileres = fuenteDatos.crearAlquileres();
-        clientes = fuenteDatos.crearClientes();
-        vehiculos = fuenteDatos.crearVehiculos();
-    }
-
-    public void terminar() {
-        System.out.println("El modelo ha terminado.");
+        setFuenteDatos(fuenteDatos);
+        comenzar();
     }
 
     public void insertar(Cliente cliente) throws Exception {
@@ -57,18 +37,18 @@ public abstract class Modelo {
     }
 
     public Cliente buscar(Cliente cliente) {
-        Cliente cliente2 = new Cliente(clientes.buscar(cliente));
-        return cliente2;
+        Cliente listaClientes = new Cliente(clientes.buscar(cliente));
+        return listaClientes;
     }
 
     public Vehiculo buscar(Vehiculo vehiculo) {
-        Vehiculo vehiculo2 = (vehiculos.buscar(vehiculo));
-        return vehiculo2;
+        Vehiculo listaVehiculos = (vehiculos.buscar(vehiculo));
+        return listaVehiculos;
     }
 
     public Alquiler buscar(Alquiler alquiler) {
-        Alquiler alquiler2 = new Alquiler(alquileres.buscar(alquiler));
-        return alquiler2;
+        Alquiler listaAlquileres = new Alquiler(alquileres.buscar(alquiler));
+        return listaAlquileres;
     }
 
     public void modificar(Cliente cliente, String nombre, String telefono) throws Exception {
